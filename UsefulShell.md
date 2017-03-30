@@ -1,6 +1,23 @@
 # Useful Shell Commands
 
 
+# Replace all instances of one string with another 
+				The -type f is just good practice; sed will complain if you give it a directory or so. -exec is preferred over xargs; you needn't bother with -print0 or anything. The {} + at the end means that find will append all results as arguments to one instance of the called command, instead of re-running it for each result. (One exception is when the maximal number of command-line arguments allowed by the OS is breached; in that case find will run more than one instance.)
+ * find . -type f -name '*.txt' -exec sed -i '' s/this/that/ {} +
+
+
+
+
+ 
+# Compare two directories 
+a treats all files as text, r recursively searched subdirectories, q reports 'briefly', only when files differ
+ * diff -arq folder1 folder2
+will do this, telling you both if any files have been added or deleted, and what's changed in the files that have been modified.
+ * diff -r 
+
+# Limit number of lines in output 
+	| head -n 10
+
 # Verify Sha256 checksum 
  * openssl dgst -sha256 path/to/file | 
  grep -i -a developerchecksum
@@ -65,11 +82,11 @@ If you get a resource busy error just unmount the usb.
     node -v
     npm -v
     npm install -g firebase-tools
- * Run PATH=/Users/btholmes/.node-modules/bin/firebase:$PATH
+ * Run PATH=/Users/myName/.node-modules/bin/firebase:$PATH
  * Configure gmail account and password 
  	    firebase functions:config:set gmail.email="myusername@gmail.com" gmail.password="secretpassword"
  * For some reason after everything, it only worked if alias was set 
-    alias firebase='/Users/btholmes/.npm-packages/bin/firebase'
+    alias firebase='/Users/myName/.npm-packages/bin/firebase'
  * firebase init
  * Configure firebase with 
     firebase login 
@@ -184,6 +201,13 @@ Uninstall Brew
 
  * git config --get remote.origin.url
  * git config --global user.email
+
+# Delete everything from remote repo and replace with local directory 
+ * git push origin --delete master
+  	Or you could also do 
+  	* git push -f 
+
+Then create a master branch and push your new code .
  
  
 ## (FIND CMD) Exececute a command in all subdirectories of current directory
@@ -220,7 +244,7 @@ Uninstall Brew
   			#!bin/bash
 		        curl -u 'UserName' https://api.github.com/user/repos -d "{\"name\":\"$1\"}";
 			git init;
-			git remote add origin https://github.com/btholmes/$1.git;
+			git remote add origin https://github.com/myName/$1.git;
 			
  2. chmod 755 githubscript.sh
  3. nano ~/.profile;
@@ -245,7 +269,7 @@ Uninstall Brew
  * git init 
  * git add . 
  * git commit -m "Initial Commit"
- * git remote add origin https://github.com/btholmes/Demo.git (This only needs to be done on the inital creation) 
+ * git remote add origin https://github.com/myName/Demo.git (This only needs to be done on the inital creation) 
  * git push -u origin master
 	
 	
@@ -260,7 +284,7 @@ Uninstall Brew
 	
 ## Generating SSH keys
  * Check if you have one already with cat ~/.ssh/id_rsa.pub
- * If you don't have one, generate one with ssh-keygen -t rsa -C "btholmes@iastate.edu"
+ * If you don't have one, generate one with ssh-keygen -t rsa -C "myEmail@domain.com"
  * When prompted for location and file name just press enter
  * use this to change password ssh-keygen -p <keyname>
 	
@@ -456,7 +480,7 @@ exit 0
  		export EDITOR="path"
  		
  		
- # Display free disk space
+# Display free disk space
   * Get size of files in current directory 
   		
   			du -sh * 
@@ -464,6 +488,9 @@ exit 0
   * Get free disk space 
   		
   		df -h
+
+  * Size of a single file 
+  		du -h
 
 # Use curl with redirects to download from sourceforge 
 
@@ -527,5 +554,9 @@ Use same settings as incoming mail server
  * Change MAC address, must be disconnected from wifi networks for this to work (Press and hold option, then click wifi icon)
 		
 		sudo ifconfig en0 ether xx:xx:xx:xx:xx:xx
+
+
+# Selenium Webdriver with firefox
+ * brew install geckodriver
 
 
