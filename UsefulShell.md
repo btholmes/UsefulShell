@@ -1,14 +1,30 @@
 # Useful Shell Commands
 
 
+
+# Perl for string replacement, because sed with OSX is weird 
+ * perl -pi -w -e 's/SEARCH_FOR/REPLACE_WITH/g;' *.txt
+
+
+# GITHUB UPDATE STUFF
+ * find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && perl -pi -w -e 's/You are/I am/g;' git.txt" \; 
+
+
 # Replace all instances of one string with another 
+## Note below options use sed... and sed isn't that great with mac.. now you know. 
 				The -type f is just good practice; sed will complain if you give it a directory or so. -exec is preferred over xargs; you needn't bother with -print0 or anything. The {} + at the end means that find will append all results as arguments to one instance of the called command, instead of re-running it for each result. (One exception is when the maximal number of command-line arguments allowed by the OS is breached; in that case find will run more than one instance.)
- * find . -type f -name '*.txt' -exec sed -i '' s/this/that/ {} +
+  * find . -type f -name '*.txt' -exec sed -i '' s/this/that/ {} +
+  * find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && echo 'I am a git update script' >> git.txt" \;
+
+
+# Exceucte Find and Sed together
+ * find . -name "*.java" -exec sed -i '' s/foo/bar/g {} +
 
 
 
 
- 
+
+
 # Compare two directories 
 a treats all files as text, r recursively searched subdirectories, q reports 'briefly', only when files differ
  * diff -arq folder1 folder2
